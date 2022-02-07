@@ -33,8 +33,9 @@ console.log("Waiting for the fake server to reply...");
 // ----- You have to make it work as intended -----
 const serverResponse = new Promise(responseHandler);
 
-serverResponse.then((data)=> updateDOMWithData(data))
-.catch((error)=> updateDOMWithError(error));
+serverResponse
+.then(updateDOMWithData)
+.catch(updateDOMWithError);
 
 function updateDOMWithData(data) {
   const html = document.createElement("div")
@@ -80,8 +81,7 @@ function responseHandler(resolveCb, rejectCb) {
   setTimeout(
     () => {
      if (serverIsUp){
-      resolveCb (data)// Read the "serverIsUp" flag here
-      // and handle the promise to dispaly the correct HTML into the DOM here.
+      resolveCb (data)
     } else {
       rejectCb(error)}
     },
